@@ -11,6 +11,8 @@ java -jar IllumioScreeningTest-1.0-SNAPSHOT.jar /Users/prajwalrupakheti/projects
 
 
 The output looks like below : 
+
 name                          : 2
 ai                            : 1
+
 
