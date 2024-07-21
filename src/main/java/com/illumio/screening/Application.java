@@ -38,7 +38,12 @@ public class Application {
     }
 
     public void showResult() {
-        Comparator<String> comparator = (s1, s2) -> this.matchedWordFrequencyMap.getOrDefault(s2, 0) - matchedWordFrequencyMap.getOrDefault(s1, 0);
+        Comparator<String> comparator = (s1, s2) -> {
+            if( this.matchedWordFrequencyMap.getOrDefault(s2, 0) - matchedWordFrequencyMap.getOrDefault(s1, 0) == 0) {
+                return 1;
+            }
+            return this.matchedWordFrequencyMap.getOrDefault(s2, 0) - matchedWordFrequencyMap.getOrDefault(s1, 0);
+        };
         Map<String, Integer> treeMap = new TreeMap<>(comparator);
         treeMap.putAll(this.matchedWordFrequencyMap);
         int columnWidth = 30;
