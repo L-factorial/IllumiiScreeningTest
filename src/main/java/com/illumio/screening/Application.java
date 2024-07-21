@@ -24,12 +24,21 @@ public class Application {
     }
 
     private Map<String, Integer> computeResult() {
+        Map<String, Integer> result = new HashMap<>();
         while(inputHandler.hasNext()) {
             String word = inputHandler.nextWord();
             if(dictionary.contains(word)) {
-                matchedWordFrequencyMap.put(word, matchedWordFrequencyMap.getOrDefault(word, 0) + 1);
+                result.put(word, result.getOrDefault(word, 0) + 1);
             }
         }
+        Comparator<String> comparator = (s1, s2) -> {
+            if( result.getOrDefault(s2, 0) - result.getOrDefault(s1, 0) == 0) {
+                return s1.compareTo(s2);
+            }
+            return result.getOrDefault(s2, 0) - result.getOrDefault(s1, 0);
+        };
+        this.matchedWordFrequencyMap = new TreeMap<>(comparator);
+        this.matchedWordFrequencyMap.putAll(result);
         return matchedWordFrequencyMap;
     }
 
@@ -38,16 +47,9 @@ public class Application {
     }
 
     public void showResult() {
-        Comparator<String> comparator = (s1, s2) -> {
-            if( this.matchedWordFrequencyMap.getOrDefault(s2, 0) - matchedWordFrequencyMap.getOrDefault(s1, 0) == 0) {
-                return 1;
-            }
-            return this.matchedWordFrequencyMap.getOrDefault(s2, 0) - matchedWordFrequencyMap.getOrDefault(s1, 0);
-        };
-        Map<String, Integer> treeMap = new TreeMap<>(comparator);
-        treeMap.putAll(this.matchedWordFrequencyMap);
+
         int columnWidth = 30;
-        for(Map.Entry<String, Integer> entry : treeMap.entrySet()) {
+        for(Map.Entry<String, Integer> entry : this.matchedWordFrequencyMap.entrySet()) {
             String key = entry.getKey();
             if(key.length() < columnWidth) {
                 while(key.length() < columnWidth) {
