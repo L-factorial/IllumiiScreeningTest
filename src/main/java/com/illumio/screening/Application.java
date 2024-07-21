@@ -55,20 +55,13 @@ public class Application {
 
     public static void main(String[] args) throws IOException {
         if(args.length != 2) {
-            System.out.println("Missing predefined words and input file");
+            System.out.println("Missing predefined words and/or input file. The first argument is the exact file path for input. The second argument is the exact file path for predefined words.");
             return;
         }
         String inputFile = args[0];
         String predefinedWordsFile = args[1];
         Dictionary dictionary = DictionaryFactory.getDictionaryFromFile(predefinedWordsFile);
         InputHandler inputHandler = InputHandlerFactory.getFileBasedInputHandler(new File(inputFile));
-//        Map<String, Integer> matchedWordFrequencyMap = new HashMap<>();
-//        while(inputHandler.hasNext()) {
-//            String word = inputHandler.nextWord();
-//            if(dictionary.contains(word)) {
-//                matchedWordFrequencyMap.put(word, matchedWordFrequencyMap.getOrDefault(word, 0) + 1);
-//            }
-//        }
 
         Application app = new Application(dictionary, inputHandler);
         app.showResult();

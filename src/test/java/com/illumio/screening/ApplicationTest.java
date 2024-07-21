@@ -5,8 +5,10 @@ import com.illumio.screening.dictionary.loader.DictionaryLoader;
 import com.illumio.screening.input.handler.InputHandler;
 import com.illumio.screening.tokenreader.TokenReader;
 import com.illumio.screening.tokenreader.TokenReaderImpl;
+import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -26,7 +28,9 @@ public class ApplicationTest {
 
         Application application = new Application(dictionaryLoader, inputHandler);
         Map<String, Integer> result = application.getResult();
-        System.out.println(result);
+
+        Map<String, Integer> expectedResult = Map.of("ai", 1, "name", 2);
+        Assert.assertEquals(expectedResult, result);
 
     }
 
